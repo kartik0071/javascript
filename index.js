@@ -2176,3 +2176,161 @@
 //     this.greet= () => "hey what's up ?";
 //     return this;
 // })();
+
+
+/** Arrow functions and "this" */
+
+// //Example 1
+// const num = {
+//     value:100,
+//     info: ()=>{
+//         console.log(this);// window
+//         return this.value;
+//     }
+//     //info: function info(){
+//     //     console.log(this);
+//     //     return this.value;
+//     // }
+// };
+// console.log(num.info());
+
+
+// //Example 2
+// const anotherNum = {
+//     value:5,
+//     // info: ()=>{
+//     //     console.log(this);// window
+//     //     return this.value;
+//     // }
+//     info: function info(){
+//         console.log(this);
+//         return this.value;
+//     }
+// };
+// const newNum = {
+//     value: 17
+// };
+// console.log(anotherNum.info.call(newNum));
+
+
+
+//Example 3
+// const str = {
+//     value:"Delayed greeting",
+    // this is lost in the callback function
+    // greet: function greet(){
+    //     setTimeout(function(){
+    //         console.log(this);// window
+    //         console.log(this.value);// Undefined
+    //     },1000);
+    //  }
+    //  //Option 1
+    // greet: function greet(){
+    //     const self = this;
+    //    setTimeout(function(){
+    //        console.log(self);
+    //        console.log(self.value);// Delayed greeting
+    //    },1000);
+    // }
+
+//     //Option 2
+//     greet: function greet(){
+//         setTimeout(()=>{
+//             console.log(this);// str
+//             console.log(this.value);// Delayed greeting
+//         },1000);
+//      }
+// };
+// console.log(str.greet());
+
+
+
+// //Example 1 - Object literal
+// const num = {
+//     value:100,
+//     // info: ()=>{
+//     //     console.log(this);// window
+//     //     return this.value;
+//     // }
+//     info: function (){
+//         console.log(this);
+//         return this.value;
+//     }
+// };
+
+
+// // Example 2 - function constructor
+// function GroceryItem(title, kind){
+//     this.title = title;
+//     this.kind = kind;
+// }
+// /**Uncaught TypeError: GroceryItem is not a constructor */
+// // const GroceryItem = (title, kind) => {
+// //     this.title = title;
+// //     this.kind = kind;
+// // };
+// GroceryItem.prototype.info = function(){
+//     return this.title + " is " + this.kind;
+// };
+// // /** "this" is window and function always returns "undefined is undefined" */
+// // GroceryItem.prototype.info = () => {
+// //     console.log(this);
+// //     return this.title + " is " + this.kind;
+// // }
+// const apple = new GroceryItem("Apple","fruit");
+// console.log(apple);
+// const brocolli = new GroceryItem("Brocolli","vegetable");
+// console.log(brocolli);
+
+
+// /** Button */
+// const createButton = ()=>{
+//     const btn =document.createElement("button");
+//     let clickQty = 0;
+//     btn.innerHTML = "click me";
+//     // btn.onclick = function(){
+//     //     console.log("Button was clicked")
+//     //     btn.innerHTML = "Button was clicked "+ ++ clickQty +" times";
+//     // };
+
+//     /**Regular function expression */
+//     btn.addEventListener("click",function(){
+//         //console.log(this);
+//         console.log("Button was clicked")
+//         this.innerHTML = "Button was clicked "+ ++ clickQty +" times";
+//     });
+
+//         // /** Arrow function expression */
+//         // btn.addEventListener("click",() => {
+//         //     console.log("Button was clicked")
+//         //     console.log(this) // window object
+//         //     this.innerHTML = "Button was clicked "+ ++ clickQty +" times";
+//         // });
+//     document.body.appendChild(btn);
+// };
+// createButton("Click me");
+
+
+// /** Arguments in functions */
+
+// //regular function declaration
+// function sum(){
+//     console.log(arguments);
+//     console.log(typeof arguments);
+//     console.log(Array.isArray(arguments));
+//     const argumentsArray = Array.from(arguments);
+//     console.log(argumentsArray);
+// }
+// sum(1,2,3,4,5,6,7);
+
+
+// // Arrow function Expression
+// const sum2 = (...arguments) => {
+//     console.log(...arguments);
+//     console.log(arguments);
+//     console.log(typeof arguments);
+//     console.log(Array.isArray(arguments));
+//     const argumentsArray = Array.from(arguments);
+//     console.log(argumentsArray);
+// };
+// sum(1,2,3);
